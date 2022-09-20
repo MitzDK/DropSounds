@@ -125,12 +125,19 @@ public class DropSoundsCompletedPlugin extends Plugin
 		if (chatMessage.getType() != ChatMessageType.GAMEMESSAGE && chatMessage.getType() != ChatMessageType.CLAN_GIM_MESSAGE && chatMessage.getType() != ChatMessageType.SPAM) {
 			return;
 		}
-		if (chatMessage.getType() == ChatMessageType.CLAN_GIM_MESSAGE && chatMessage.getMessage().contains(client.getLocalPlayer().getName() + " received a drop")) {
-			soundEngine.playClip(Sound.ITEM_DROP_1);
+		if(config.chatSelect() == ChatSelect.CLAN_MESSAGE){
+			if (chatMessage.getType() == ChatMessageType.CLAN_MESSAGE && chatMessage.getMessage().contains(client.getLocalPlayer().getName() + " received a drop")) {
+				soundEngine.playClip(Sound.VALUABLE_DROP);
+			}
+		}
+		if(config.chatSelect() == ChatSelect.CLAN_GIM_MESSAGE){
+			if (chatMessage.getType() == ChatMessageType.CLAN_GIM_MESSAGE && chatMessage.getMessage().contains(client.getLocalPlayer().getName() + " received a drop")) {
+				soundEngine.playClip(Sound.VALUABLE_DROP);
+			}
 		}
 		if (chatMessage.getType() == ChatMessageType.GAMEMESSAGE && chatMessage.getMessage().contains("Untradeable drop: ")) {
 			if(getHighlights().contains(chatMessage.getMessage().split(": ")[1])){
-				soundEngine.playClip(Sound.ITEM_DROP_1);
+				soundEngine.playClip(Sound.UNTRADEABLE_DROP);
 			}
 		}
 	}

@@ -1,7 +1,8 @@
 package com.github.MitzDK;
 
 public enum Sound {
-    ITEM_DROP_1("goodsound.wav");
+    VALUABLE_DROP("goodDrop.wav"),
+    UNTRADEABLE_DROP("untradeableItem.wav");
 
     private final String resourceName;
 

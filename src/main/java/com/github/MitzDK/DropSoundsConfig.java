@@ -25,13 +25,20 @@ public interface DropSoundsConfig extends Config {
     }
     @ConfigItem(
             position = 2,
+            keyName = "chatSelect",
+            name = "Which type of chat:",
+            description = "Pick between Group chat and Clan chat for notifications"
+    )
+    default ChatSelect chatSelect(){return ChatSelect.CLAN_MESSAGE;}
+    @ConfigItem(
+            position = 3,
             keyName = "itemsToNotify",
-            name = "Items to notify if dropped",
-            description = "List of items to be notified, seperated by ,"
+            name = "Items to notify if dropped, seperate with a ,",
+            description = "List of items to be notified"
     )
     default String itemsToNotify()
     {
-        return "";
+        return "Clue scroll (beginner),Clue scroll (easy),Clue scroll (medium),Clue scroll (hard),Clue scroll (elite),Clue scroll (master),Dark totem top,Dark totem middle,Dark totem base,Mossy key,Giant key,Ancient shard,Brimstone key,Larran's key";
     }
 
 }
