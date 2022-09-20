@@ -2,6 +2,7 @@
 
 ##### A plugin for [RuneLite](https://runelite.net/)
 
+HUGE thanks to m0bile btw, for helping me with this project, and for allowing me to use his work as a baseline.
 Custom sounds play when certain drop criteria are met.
 ___
 
