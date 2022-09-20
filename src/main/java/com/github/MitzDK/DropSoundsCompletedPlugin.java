@@ -1,7 +1,9 @@
 package com.github.MitzDK;
 
 import com.google.inject.Provides;
-import java.util.HashMap;
+
+import java.util.*;
+
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
@@ -27,9 +29,6 @@ import net.runelite.client.util.Text;
 import okhttp3.OkHttpClient;
 
 import javax.inject.Inject;
-import java.util.EnumMap;
-import java.util.Map;
-import java.util.Random;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -109,13 +108,30 @@ public class DropSoundsCompletedPlugin extends Plugin
 		}
 	}
 
+	List<String> getHighlights()
+	{
+		final String configNpcs = config.itemsToNotify();
+
+		if (configNpcs.isEmpty())
+		{
+			return Collections.emptyList();
+		}
+
+		return Text.fromCSV(configNpcs);
+	}
+
 	@Subscribe
 	public void onChatMessage(ChatMessage chatMessage) {
-		if (chatMessage.getType() != ChatMessageType.CLAN_GIM_MESSAGE && chatMessage.getType() != ChatMessageType.SPAM) {
+		if (chatMessage.getType() != ChatMessageType.GAMEMESSAGE && chatMessage.getType() != ChatMessageType.CLAN_GIM_MESSAGE && chatMessage.getType() != ChatMessageType.SPAM) {
 			return;
 		}
-		if (chatMessage.getMessage().contains(client.getLocalPlayer().getName() + " received a drop")) {
+		if (chatMessage.getType() == ChatMessageType.CLAN_GIM_MESSAGE && chatMessage.getMessage().contains(client.getLocalPlayer().getName() + " received a drop")) {
 			soundEngine.playClip(Sound.ITEM_DROP_1);
+		}
+		if (chatMessage.getType() == ChatMessageType.GAMEMESSAGE && chatMessage.getMessage().contains("Untradeable drop: ")) {
+			if(getHighlights().contains(chatMessage.getMessage().split(": ")[1])){
+				soundEngine.playClip(Sound.ITEM_DROP_1);
+			}
 		}
 	}
 

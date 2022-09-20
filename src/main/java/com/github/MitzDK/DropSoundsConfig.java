@@ -18,9 +18,20 @@ public interface DropSoundsConfig extends Config {
             keyName = "announcementVolume",
             name = "Announcement volume",
             description = "Adjust how loud the audio announcements are played!",
-            position = 8
+            position = 1
     )
     default int announcementVolume() {
         return 100;
     }
+    @ConfigItem(
+            position = 2,
+            keyName = "itemsToNotify",
+            name = "Items to notify if dropped",
+            description = "List of items to be notified, seperated by ,"
+    )
+    default String itemsToNotify()
+    {
+        return "";
+    }
+
 }
