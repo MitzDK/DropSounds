@@ -8,7 +8,7 @@ import net.runelite.client.config.Range;
 @ConfigGroup(DropSoundsConfig.GROUP)
 public interface DropSoundsConfig extends Config {
 
-    String GROUP = "cengineercompleted";
+    String GROUP = "dropsoundscompleted";
 
     @Range(
             min = 0,
