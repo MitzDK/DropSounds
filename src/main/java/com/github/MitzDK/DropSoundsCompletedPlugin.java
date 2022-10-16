@@ -29,6 +29,7 @@ import net.runelite.client.plugins.Plugin;
 import net.runelite.client.plugins.PluginDescriptor;
 import net.runelite.client.util.Text;
 import okhttp3.OkHttpClient;
+import org.apache.commons.lang3.StringUtils;
 
 import javax.inject.Inject;
 import java.util.concurrent.ScheduledExecutorService;
@@ -38,7 +39,7 @@ import java.util.regex.Pattern;
 @Slf4j
 @PluginDescriptor(
         name = "Drop Sounds",
-        description = "Plays sounds when loot drops",
+        description = "Turn on Loot drop notifications / Untradeable in Runescape settings",
         tags = {"announce", "sound"}
 )
 
@@ -114,19 +115,25 @@ public class DropSoundsCompletedPlugin extends Plugin {
 
         return Text.fromCSV(configItems);
     }
+    final static Pattern regexPattern = Pattern.compile("\\w+(?=\\s+coin)");
 
+    private static String findCoinValue(String originalStr) {
+        originalStr = originalStr.replaceAll(",", "");
+        final Matcher matcher = DropSoundsCompletedPlugin.regexPattern.matcher(originalStr);
+        if (matcher.find()) {
+            String stringToReturn = matcher.group(0);
+            return stringToReturn;
+        }
+        return null;
+    }
     @Subscribe
     public void onChatMessage(ChatMessage chatMessage) {
         if (chatMessage.getType() != ChatMessageType.GAMEMESSAGE && chatMessage.getType() != ChatMessageType.CLAN_GIM_MESSAGE && chatMessage.getType() != ChatMessageType.SPAM) {
             return;
         }
-        if (config.chatSelect() == ChatSelect.CLAN_MESSAGE) {
-            if (chatMessage.getType() == ChatMessageType.CLAN_MESSAGE && chatMessage.getMessage().contains(client.getLocalPlayer().getName() + " received a drop")) {
-                soundEngine.playClip(Sound.VALUABLE_DROP);
-            }
-        }
-        if (config.chatSelect() == ChatSelect.CLAN_GIM_MESSAGE) {
-            if (chatMessage.getType() == ChatMessageType.CLAN_GIM_MESSAGE && chatMessage.getMessage().contains(client.getLocalPlayer().getName() + " received a drop")) {
+        if (chatMessage.getType() == ChatMessageType.GAMEMESSAGE && chatMessage.getMessage().contains("Valuable drop: ")) {
+            Integer coinValue = Integer.parseInt(findCoinValue(chatMessage.getMessage()));
+            if(coinValue >= config.valueThreshold()){
                 soundEngine.playClip(Sound.VALUABLE_DROP);
             }
         }

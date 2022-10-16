@@ -16,7 +16,7 @@ public interface DropSoundsConfig extends Config {
     )
     @ConfigItem(
             keyName = "announcementVolume",
-            name = "Announcement volume 0-200",
+            name = "Volume 0-200",
             description = "Adjust how loud the audio announcements are played!",
             position = 1
     )
@@ -25,11 +25,11 @@ public interface DropSoundsConfig extends Config {
     }
     @ConfigItem(
             position = 2,
-            keyName = "chatSelect",
-            name = "Channel",
-            description = "Pick between Group chat and Clan chat for notifications"
+            keyName = "valueThreshold",
+            name = "GP Threshold",
+            description = "Threshold for loot drop value"
     )
-    default ChatSelect chatSelect(){return ChatSelect.CLAN_MESSAGE;}
+    default int valueThreshold(){return 100000;}
     @ConfigItem(
             position = 3,
             keyName = "itemsToNotify",
