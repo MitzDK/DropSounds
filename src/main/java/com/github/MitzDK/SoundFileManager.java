@@ -63,7 +63,7 @@ public abstract class SoundFileManager {
 
             if (RAW_GITHUB == null) {
                 // Hush intellij, it's okay, the potential NPE can't hurt you now
-                log.error("C Engineer Completed could not download sounds due to an unexpected null RAW_GITHUB value");
+                log.error("Droupsounds could not download sounds due to an unexpected null RAW_GITHUB value");
                 return;
             }
             HttpUrl soundUrl = RAW_GITHUB.newBuilder().addPathSegment(fileName).build();
@@ -72,7 +72,7 @@ public abstract class SoundFileManager {
                 if (res.body() != null)
                     Files.copy(new BufferedInputStream(res.body().byteStream()), outputPath, StandardCopyOption.REPLACE_EXISTING);
             } catch (IOException e) {
-                log.error("C Engineer Completed could not download sounds", e);
+                log.error("Droupsounds could not download sounds", e);
                 return;
             }
         }

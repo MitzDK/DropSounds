@@ -6,8 +6,8 @@ import lombok.Getter;
 @Getter
 @AllArgsConstructor
 public enum ChatSelect {
-    CLAN_MESSAGE("Clan chat notification"),
-    CLAN_GIM_MESSAGE("Group chat notification");
+    CLAN_MESSAGE("Clan"),
+    CLAN_GIM_MESSAGE("Group");
 
     private final String name;
     @Override

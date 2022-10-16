@@ -28,7 +28,7 @@ public class SoundEngine {
             }
             return true;
         } catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {
-            log.warn("Failed to load C Engineer sound " + sound, e);
+            log.warn("Failed to load Droupsound sound " + sound, e);
         }
         return false;
     }
@@ -44,7 +44,7 @@ public class SoundEngine {
                 clip = AudioSystem.getClip();
             } catch (LineUnavailableException e) {
                 lastClipMTime = CLIP_MTIME_UNLOADED;
-                log.warn("Failed to get clip for C Engineer sound " + sound, e);
+                log.warn("Failed to get clip for Droupsound sound " + sound, e);
                 return;
             }
 

@@ -16,7 +16,7 @@ public interface DropSoundsConfig extends Config {
     )
     @ConfigItem(
             keyName = "announcementVolume",
-            name = "Announcement volume",
+            name = "Announcement volume 0-200",
             description = "Adjust how loud the audio announcements are played!",
             position = 1
     )
@@ -26,7 +26,7 @@ public interface DropSoundsConfig extends Config {
     @ConfigItem(
             position = 2,
             keyName = "chatSelect",
-            name = "Channel:",
+            name = "Channel",
             description = "Pick between Group chat and Clan chat for notifications"
     )
     default ChatSelect chatSelect(){return ChatSelect.CLAN_MESSAGE;}
