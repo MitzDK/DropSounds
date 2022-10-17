@@ -26,12 +26,19 @@ public interface DropSoundsConfig extends Config {
     @ConfigItem(
             position = 2,
             keyName = "valueThreshold",
-            name = "GP Threshold",
+            name = "Drop Threshold",
             description = "Threshold for loot drop value"
     )
     default int valueThreshold(){return 100000;}
     @ConfigItem(
             position = 3,
+            keyName = "raidValueThreshold",
+            name = "Raid Threshold",
+            description = "Threshold for raid loot value"
+    )
+    default int raidValueThreshold(){return 1000000;}
+    @ConfigItem(
+            position = 4,
             keyName = "itemsToNotify",
             name = "Items, case sensitive",
             description = "List of items to be notified"
