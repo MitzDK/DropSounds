@@ -132,6 +132,12 @@ public class DropSoundsCompletedPlugin extends Plugin {
             return;
         }
         if (chatMessage.getType() == ChatMessageType.GAMEMESSAGE && chatMessage.getMessage().contains("Valuable drop: ")) {
+            for (String str : getHighlights()){
+                if(chatMessage.getMessage().split(": ")[1].contains(str)){
+                    soundEngine.playClip(Sound.UNTRADEABLE_DROP);
+                    break;
+                }
+            }
             Integer coinValue = Integer.parseInt(findCoinValue(chatMessage.getMessage()));
             if(coinValue >= config.valueThreshold()){
                 soundEngine.playClip(Sound.VALUABLE_DROP);
